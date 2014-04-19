@@ -1,0 +1,25 @@
+{
+    "background":             {
+        "scripts":    ["js/eventPage.js"],
+        "persistent": false
+    },
+    "icons":                  {
+        "128": "icon/icon-128.png",
+        "16":  "icon/icon-16.png",
+        "48":  "icon/icon-48.png"
+    },
+    "default_locale":         "nl",
+    "minimum_chrome_version": "22",
+    "name":                   "__MSG_appName__",
+    "description":            "__MSG_appDescription__",
+    "browser_action":         {
+        "default_icon":  {
+            "19": "icon/icon-16.png",
+            "38": "icon/icon-48.png"
+        },
+        "default_title": "__MSG_appName__",
+        "default_popup": "html/popup.html"
+    },
+    "version":                "0.1",
+    "manifest_version":       2
+}

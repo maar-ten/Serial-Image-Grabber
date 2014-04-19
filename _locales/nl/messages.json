@@ -1,0 +1,16 @@
+{
+    "appName":           {
+        "description": "The title of the application, displayed in the web store.",
+        "message":     "Serial Image Grabber"
+    },
+    "appDescription":    {
+        "description": "A description what this application does, displayed in extensions menu",
+        "message":     "Download eenvoudig een hele serie van afbeeldingen."
+    },
+    "searchPlaceholder": {
+        "message": "Voer url-patroon in als: https://www.een-website.nl/afb[001-010].png"
+    },
+    "doSearch":          {
+        "message": "Toon afbeeldingen"
+    }
+}
