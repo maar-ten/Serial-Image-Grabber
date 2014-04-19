@@ -3,12 +3,13 @@
 Serial Image Grabber
 ===
 
-*grabs a collection of images from a web server*
+*grab a collection of images by url pattern*
 
 Usage
 ---
-Enter a url pattern in the search field of the extension and press enter. The extension will compile separate image urls
-from the pattern and display the images in a new browser tab.
+This is a Google Chrome browser extension. It adds an icon to your extension bar. When it is clicked a search field
+will appear. Enter a image url pattern in the search field and press enter. The extension will compile separate image
+urls from the pattern and display the images in a new browser tab.
 
 For example, if you enter the url pattern **http://www.somewebsite.com/image_[003-005].png** and press enter, a new
 tab will open up and display these images below each other:
