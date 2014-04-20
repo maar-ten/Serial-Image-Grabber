@@ -9,14 +9,14 @@
     },
     "appDescription":    {
         "description": "A description what this application does, displayed in extensions menu",
-        "message":     "Download eenvoudig een hele serie van afbeeldingen."
+        "message":     "Dowload a collection of images by url pattern."
     },
     "searchPlaceholder": {
         "description": "Text will be shown in a placeholder in the text field",
-        "message":     "Voer url-patroon in als: https://www.een-website.nl/afb[001-010].png"
+        "message":     "Enter url pattern like: https://www.some-website.com/img[001-010].png"
     },
     "doSearch":          {
         "description": "Text will be shown on the search button.",
-        "message":     "Toon afbeeldingen"
+        "message":     "Get images"
     }
 }
