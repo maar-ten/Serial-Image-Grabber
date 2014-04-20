@@ -28,6 +28,6 @@ This browser extension doesn't require any permissions
 
 Legal information
 ---
-The icon was designed by Schollidesign and downloaded from findicons.com, which said it was GNU/GPL licensed.
+This software is GNU/GPL licensed.
 
 
