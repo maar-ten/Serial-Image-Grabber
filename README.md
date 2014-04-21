@@ -5,7 +5,7 @@ Serial Image Grabber
 
 *grab a collection of images by url pattern*
 
-Usage ([wiki](wiki/))
+Usage
 ---
 This is a Google Chrome browser extension. It adds an icon to your extension bar. When it is clicked a search field
 will appear. Enter a image url pattern in the search field and press enter. The extension will compile separate image
