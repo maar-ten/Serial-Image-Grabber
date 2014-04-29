@@ -26,6 +26,8 @@ function checkInputAndSend() {
  */
 window.onload = function () {
     loadI18nMessages();
-    document.getElementById("q").onsearch = checkInputAndSend;
+    var inputField = document.getElementById("q");
+    inputField.focus();
+    inputField.onsearch = checkInputAndSend;
     document.getElementById("q-button").onclick = checkInputAndSend;
 };
