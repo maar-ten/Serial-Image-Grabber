@@ -94,23 +94,36 @@ UrlCompiler.getData = function (urlPattern) {
 };
 
 /**
- * Creates a request handler.
+ * Adds a update listener to a tab that will send the data packet to the given tab when it's ready loading.
+ *
+ * @param tab
+ * @param data
+ */
+function onTabUpdated(tab, data) {
+    chrome.tabs.onUpdated.addListener(function (updatedTabId, changeInfo, updatedTab) {
+        if (tab.id === updatedTabId && changeInfo.status === "complete") {
+            chrome.tabs.sendMessage(tab.id, {data: data});
+        }
+    });
+}
+
+/**
+ * Opens a new tab if the request contains a url pattern. The opened tab will receive the data when the tab is fully loaded.
  *
  * @param request
  * @param sender
  * @param sendResponse
  */
-function onMessageReceived(request, sender, sendResponse) {
+function processRequest(request, sender, sendResponse) {
     if (!request.urlPattern) {
         return;
     }
-    var data = new UrlCompiler.getData(request.urlPattern);
     chrome.tabs.create({url: chrome.extension.getURL('/html/results.html')}, function (tab) {
-        chrome.tabs.sendMessage(tab.id, {data: data});
+        onTabUpdated(tab, new UrlCompiler.getData(request.urlPattern));
     });
 }
 
 /**
  * Registers a request listener.
  */
-chrome.runtime.onMessage.addListener(onMessageReceived);
+chrome.runtime.onMessage.addListener(processRequest);
