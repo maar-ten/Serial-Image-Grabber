@@ -1,4 +1,15 @@
 /**
+ * Initialize popup window's elements.
+ */
+window.onload = function () {
+    loadI18nMessages();
+    var inputField = document.getElementById("q");
+    inputField.focus();
+    inputField.onsearch = checkInputAndSend;
+    document.getElementById("q-button").onclick = checkInputAndSend;
+};
+
+/**
  * Load localizations into browser action.
  */
 function loadI18nMessages() {
@@ -20,14 +31,3 @@ function checkInputAndSend() {
     }
     chrome.runtime.sendMessage({urlPattern: inputValue});
 }
-
-/**
- * Initialize popup window's elements.
- */
-window.onload = function () {
-    loadI18nMessages();
-    var inputField = document.getElementById("q");
-    inputField.focus();
-    inputField.onsearch = checkInputAndSend;
-    document.getElementById("q-button").onclick = checkInputAndSend;
-};

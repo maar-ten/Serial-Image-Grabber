@@ -1,7 +1,54 @@
 /**
- * Event page with a listener for urlPattern messages. When a message is received, the url patter is compiled into
- * separate urls and a new tab is opened to display the images.
+ * Event page with a listener for certain messages. When a url pattern message is received, a new tab is opened to
+ * display the results. When a the compile pattern is received to pattern is compiled into a set of urls and send back
+ * to the requester.
  */
+
+/**
+ * Message handler.
+ *
+ * @param request
+ * @param sender
+ * @param sendResponse
+ */
+function onMessageReceived(request, sender, sendResponse) {
+    if (request.urlPattern) {
+        openResultsTab(request.urlPattern);
+        sendResponse({response: "results tab was opened"});
+        return true;
+    }
+    if (request.compilePattern) {
+        compileUrlsAndSendResults(sender.tab, request.compilePattern);
+        sendResponse({response: "urls were sent"});
+        return true;
+    }
+    sendResponse({response: "no operation"});
+    return false;
+}
+
+/**
+ * Register message handler.
+ */
+chrome.runtime.onMessage.addListener(onMessageReceived);
+
+/**
+ * Opens a new tab to display the images. The url pattern is passed to the tab using a query parameter.
+ *
+ * @param imageQuery
+ */
+function openResultsTab(imageQuery) {
+    chrome.tabs.create({url: chrome.extension.getURL('/html/results.html') + '?iq=' + encodeURI(imageQuery)});
+}
+
+/**
+ * Compiles the urls using the pattern and sends to results back to the requesting tab.
+ *
+ * @param tab
+ * @param pattern
+ */
+function compileUrlsAndSendResults(tab, pattern) {
+    chrome.tabs.sendMessage(tab.id, {data: new UrlCompiler.getData(pattern)});
+}
 
 /**
  * The incrementor takes a start and finish parameters. After initializing the counter the increment function can be
@@ -92,38 +139,3 @@ UrlCompiler.getData = function (urlPattern) {
 
     return Data;
 };
-
-/**
- * Adds a update listener to a tab that will send the data packet to the given tab when it's ready loading.
- *
- * @param tab
- * @param data
- */
-function onTabUpdated(tab, data) {
-    chrome.tabs.onUpdated.addListener(function (updatedTabId, changeInfo, updatedTab) {
-        if (tab.id === updatedTabId && changeInfo.status === "complete") {
-            chrome.tabs.sendMessage(tab.id, {data: data});
-        }
-    });
-}
-
-/**
- * Opens a new tab if the request contains a url pattern. The opened tab will receive the data when the tab is fully loaded.
- *
- * @param request
- * @param sender
- * @param sendResponse
- */
-function processRequest(request, sender, sendResponse) {
-    if (!request.urlPattern) {
-        return;
-    }
-    chrome.tabs.create({url: chrome.extension.getURL('/html/results.html')}, function (tab) {
-        onTabUpdated(tab, new UrlCompiler.getData(request.urlPattern));
-    });
-}
-
-/**
- * Registers a request listener.
- */
-chrome.runtime.onMessage.addListener(processRequest);
